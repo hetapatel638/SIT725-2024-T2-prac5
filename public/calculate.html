@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test POST Request</title>
+</head>
+<body>
+    <form id="calculateForm">
+        <label for="operation">Operation:</label>
+        <input type="text" id="operation" name="operation" value="add"><br><br>
+        <label for="num1">Number 1:</label>
+        <input type="number" id="num1" name="num1" value="230"><br><br>
+        <label for="num2">Number 2:</label>
+        <input type="number" id="num2" name="num2" value="177"><br><br>
+        <button type="button" onclick="sendPostRequest()">Calculate</button>
+    </form>
+
+    <script>
+        function sendPostRequest() {
+            const operation = document.getElementById('operation').value;
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+
+            fetch('http://localhost:3000/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ operation, num1, num2 })
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
